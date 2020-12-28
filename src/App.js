@@ -33,19 +33,19 @@ const Drama_Title = [
 
 ]
 
-// function Make_Title_box(List) {
-//   console.log();
-//   return (
-//     <Video_templete key={List.id} Title={List.name} Poster={List.image} />
-//   )
-// }
+function Make_Title_box(List) {
+  console.log();
+  return (
+    <Video_templete key={List.id} Title={List.name} Poster={List.image} />
+  )
+}
 
 function App() {
   return (
     <div className="App">
-      {/* {console.log(Drama_Title.map(Make_Title_box))}
-      {Drama_Title.map(Make_Title_box)} */}
-      {Drama_Title.map(List => (<Video_templete key={List.id} Title={List.name} Poster={List.image} />) )}
+      {console.log(Drama_Title.map(Make_Title_box))}
+      {Drama_Title.map(Make_Title_box)}
+      {/* {Drama_Title.map(List => (<Video_templete key={List.id} Title={List.name} Poster={List.image} />) )} */}
     </div>
   );
 }
