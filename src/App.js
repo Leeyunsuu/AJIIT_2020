@@ -1,42 +1,23 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React from "react";
+import axios from "axios";
 
+class App extends React.Component {
+	state = {
+		isloading: true,
+		movies: [],
+	};
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    console.log("Hello");
-  };
-  state ={
-    count: 0
-  };
-  plus = () => {
-    console.log("plus");
-    this.setState(current => ({count: current.count +1})); //Component update
-  };
-  minus = () => {
-    console.log("minus");
-    this.setState(current => ({count: current.count -1}));
-  };
-  componentDidMount(){ //Compiled하고 마지막에
-    console.log("component rendered");
-  }
-  componentDidUpdate(){  //Component가 Update된 후
-    console.log("component did update")
-  }
-  componentWillUnmount(){ //Component가 Unmount 후
-    console.log("Component die!");
-  }
-  render() {
-    console.log("render");
-    return (
-    <div>
-      <h1> Class Component 입니다.{this.state.count}</h1>
-      <button onClick={this.plus}>Plus</button>
-      <button onClick={this.minus}>Minus</button>
-    </div>
-    );
-  }
+	SaveMovies = async () => {
+		const movies = await axios.get("https://yts-proxy.now.sh/list_movies.json");
+	};
+	componentDidMount() {
+		//Compiled하고 마지막에
+		this.SaveMovies();
+	}
+	render() {
+		const { isloading } = this.state;
+		return <div> {isloading ? "loading..." : "it is already"} </div>;
+	}
 }
 
 export default App;
