@@ -1,53 +1,50 @@
-import React from 'react';
+import './App.css';
+import React, { Component } from 'react';
+import Todayvideolist from './componenets/Todayvideolist';
 
-function Video_templete({ Title, Poster }){
-  return(
-    <div> 
-      <img src={Poster} alt={Title} />
-      <h2> {Title} </h2>
-    </div>
-  );
-}
-
-const Drama_Title = [ 
-  {
-    id: 1,
-    name: "highteen",
-    image: "https://upload.wikimedia.org/wikipedia/ko/7/7a/%EC%9B%B9%EB%93%9C%EB%9D%BC%EB%A7%88_%EC%97%90%EC%9D%B4%ED%8B%B4_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
-  },
-  {
-    id: 2,
-    name:"Web_Drama",
-    image:"https://upload.wikimedia.org/wikipedia/ko/b/bc/38%EC%82%AC%EA%B8%B0%EB%8F%99%EB%8C%80.jpg"
-  },
-  {
-    id: 3,
-    name:"Web_Drama2",
-    image:"https://upload.wikimedia.org/wikipedia/ko/e/e5/2016%EC%8B%9C%EA%B7%B8%EB%84%90.jpg"
-  },
-  {
-    id: 4,
-    name:"Web_drama3",
-    image:"https://upload.wikimedia.org/wikipedia/ko/b/bd/%EB%93%9C%EB%9D%BC%EB%A7%88_%EB%8F%84%EA%B9%A8%EB%B9%84.jpg"
-  }
-
-]
-
-function Make_Title_box(List) {
-  console.log();
-  return (
-    <Video_templete key={List.id} Title={List.name} Poster={List.image} />
-  )
-}
-
-function App() {
-  return (
-    <div className="App">
-      {console.log(Drama_Title.map(Make_Title_box))}
-      {Drama_Title.map(Make_Title_box)}
-      {/* {Drama_Title.map(List => (<Video_templete key={List.id} Title={List.name} Poster={List.image} />) )} */}
-    </div>
-  );
+class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			mode: 'today video list',
+			contents_id: '0',
+			Web_Drama_Contents: [
+				{ id: 1, channel: '짧은대본', title: '"가희" 편', add: 'd' },
+				{ id: 2, channel: '짧은대본', title: '"진원" 편', add: 'd' },
+				{ id: 3, channel: '짧은대본', title: '"시영" 편', add: 'd' },
+				{ id: 4, channel: '짧은대본', title: '짧게말해서', add: 'd' },
+				{ id: 5, channel: '대나무숲TV', title: '씬넘버파란', add: 'd' },
+				{ id: 6, channel: '대나무숲TV', title: '연애,오늘 배송 되나요?', add: 'd' },
+				{ id: 7, channel: '대나무숲TV', title: '어서오세요,마녀상점', add: 'd' },
+				{ id: 8, channel: '대나무숲TV', title: '네 맛대로 하는 연애', add: 'd' },
+			],
+		};
+	}
+	getReadContent() {
+		let i = 0;
+		while (i < this.state.contents.length) {
+			let data = this.state.contents[i];
+			if (data.id === this.state.contents_id) {
+				return data;
+			}
+			i = i + 1;
+		}
+	}
+	getContent() {}
+	render() {
+		return (
+			<div className='App'>
+				<Todayvideolist
+					mode={(id) => {
+						this.setState({
+							contents_id: Number(id),
+						});
+					}}
+					data={this.state.Web_Drama_Contents}
+				></Todayvideolist>
+			</div>
+		);
+	}
 }
 
 export default App;
