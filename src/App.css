@@ -1,0 +1,15 @@
+.App {
+	text-align: center;
+}
+.App a {
+	text-decoration: none;
+	color: black;
+}
+.listbox {
+	display: grid;
+}
+.textstyle {
+	text-decoration: none;
+	font-family: 'Malgun Gothic', '굴림', 'Gulim', 'Arial';
+	color: red;
+}

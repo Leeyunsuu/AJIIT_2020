@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 class Todayvideolist extends Component {
 	// shouldComponentUpdate(newProps) {
 	// 	console.log('ListUpdate');
@@ -15,7 +16,7 @@ class Todayvideolist extends Component {
 		var i = 0;
 		while (i < data.length) {
 			lists.push(
-				<li key={data[i].id}>
+				<div key={data[i].id}>
 					<a
 						href={data[i].id}
 						data-id={data[i].id}
@@ -26,13 +27,13 @@ class Todayvideolist extends Component {
 					>
 						{data[i].title}
 					</a>
-				</li>,
+				</div>,
 			);
 			i++;
 		}
 		return (
 			<nav>
-				<ul>{lists}</ul>
+				<span>{lists}</span>
 			</nav>
 		);
 	}
