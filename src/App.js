@@ -1,12 +1,14 @@
 import './App.css';
 import React, { Component } from 'react';
 import Todayvideolist from './components/Todayvideolist';
+import Menubutton from './components/Menubutton';
+import Menu_banner from './components/Menu_banner';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			mode: 'today video list',
+			mode: 'home',
 			contents_id: '0',
 			Web_Drama_Contents: [
 				{
@@ -78,16 +80,48 @@ class App extends Component {
 			i = i + 1;
 		}
 	}
-	getContent() {}
+	BANNER() {
+		let mode = this.state.mode,
+			_banner,
+			_content = null;
+		// switch (mode) {
+		// 	case 'home':
+		// 		console.log('home');
+		// 		break;
+		// 	case 'menu':
+		// 		console.log('menu');
+		// 		_content = this.getReadContent();
+		// 		_banner = <Menu_banner channel={_content.channel}></Menu_banner>;
+		// 		break;
+		// 	default:
+		// 		console.log('default');
+		// }
+		if (mode === 'home') {
+			console.log('home');
+		} else if (mode === 'menu') {
+			console.log('menu');
+			_content = this.getReadContent();
+			_banner = <Menu_banner channel={_content.channel}></Menu_banner>;
+		}
+		return _banner;
+	}
 	render() {
 		return (
 			<div className='App'>
-				<div className='textstyle'>오늘 업로드 된 작품</div>
+				<Menubutton
+					mode={() => {
+						this.setState({
+							mode: 'menu',
+						});
+					}}
+				></Menubutton>
+				{this.BANNER()}
 				<Todayvideolist
 					mode={(id) => {
 						this.setState({
 							contents_id: Number(id),
 						});
+						<div className='textstyle'>오늘 업로드 된 작품</div>;
 					}}
 					data={this.state.Web_Drama_Contents}
 				></Todayvideolist>
