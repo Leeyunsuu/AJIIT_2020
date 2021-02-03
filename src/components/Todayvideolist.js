@@ -36,7 +36,7 @@ class Todayvideolist extends Component {
 		}
 		return (
 			<nav>
-				<div className='textstyle container_banner'>최근 추가된 작품</div>
+				<div className='textstyle container_banner'>오늘 업로드된 작품</div>
 				<span>{lists}</span>
 			</nav>
 		);

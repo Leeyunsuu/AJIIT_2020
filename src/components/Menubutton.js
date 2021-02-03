@@ -5,6 +5,7 @@ class Menubutton extends Component {
 		return (
 			<input
 				type='button'
+				value='메뉴'
 				onClick={(e) => {
 					e.preventDefault();
 					this.props.mode();

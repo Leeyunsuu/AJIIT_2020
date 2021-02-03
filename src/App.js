@@ -2,13 +2,15 @@ import './App.css';
 import React, { Component } from 'react';
 import Todayvideolist from './components/Todayvideolist';
 import Menubutton from './components/Menubutton';
-import Menu_banner from './components/Menu_banner';
+import MenuBanner from './components/MenuBanner';
+// import Channelvideo from './components/Channelvideo';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			mode: 'home',
+			viewmode: 'main',
+			bannermode: 'home',
 			contents_id: '0',
 			Web_Drama_Contents: [
 				{
@@ -70,10 +72,11 @@ class App extends Component {
 			],
 		};
 	}
+
 	getReadContent() {
 		let i = 0;
 		while (i < this.state.contents.length) {
-			let data = this.state.contents[i];
+			const data = this.state.contents[i];
 			if (data.id === this.state.contents_id) {
 				return data;
 			}
@@ -81,37 +84,48 @@ class App extends Component {
 		}
 	}
 	BANNER() {
-		let mode = this.state.mode,
-			_banner,
-			_content = null;
-		// switch (mode) {
-		// 	case 'home':
-		// 		console.log('home');
-		// 		break;
-		// 	case 'menu':
-		// 		console.log('menu');
-		// 		_content = this.getReadContent();
-		// 		_banner = <Menu_banner channel={_content.channel}></Menu_banner>;
-		// 		break;
-		// 	default:
-		// 		console.log('default');
-		// }
-		if (mode === 'home') {
-			console.log('home');
-		} else if (mode === 'menu') {
-			console.log('menu');
-			_content = this.getReadContent();
-			_banner = <Menu_banner channel={_content.channel}></Menu_banner>;
+		let mode = this.state.bannermode,
+			_banner = null;
+		switch (mode) {
+			case 'home':
+				console.log(this.state.bannermode);
+				break;
+			case 'menu':
+				console.log(this.state.bannermode);
+				_banner = (
+					<MenuBanner
+						bannermode={() => {
+							this.setState({
+								bannermode: 'home',
+							});
+						}}
+						data={this.getReadContent}
+					></MenuBanner>
+				);
+				break;
+			default:
+				console.log('default');
 		}
 		return _banner;
 	}
+	// View() {
+	// 	let mode = this.state.bannermode,
+	// 		_view = null;
+	// 	switch (mode) {
+	// 		case 'main':
+	// 			break;
+	// 		case 'channelvideo':
+	// 			break;
+	// 		default:
+	// 	}
+	// }
 	render() {
 		return (
 			<div className='App'>
 				<Menubutton
 					mode={() => {
 						this.setState({
-							mode: 'menu',
+							bannermode: 'menu',
 						});
 					}}
 				></Menubutton>
@@ -121,10 +135,11 @@ class App extends Component {
 						this.setState({
 							contents_id: Number(id),
 						});
-						<div className='textstyle'>오늘 업로드 된 작품</div>;
+						// <div className='textstyle'>오늘 업로드 된 작품</div>;
 					}}
 					data={this.state.Web_Drama_Contents}
 				></Todayvideolist>
+				{/* <Channelvideo data={this.state.Web_Drama_Contents}></Channelvideo> */}
 			</div>
 		);
 	}

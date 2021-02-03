@@ -3,7 +3,8 @@
 	font-family: 'Malgun Gothic', '굴림', 'Gulim', 'Arial';
 	color: #000000;
 }
-.listbox {
+
+.App-listbox {
 	display: grid;
 }
 .container_banner {
@@ -12,5 +13,6 @@
 }
 .textstyle {
 	text-decoration: none;
+	font-family: 'Malgun Gothic', '굴림', 'Gulim', 'Arial';
 	color: #000000;
 }
