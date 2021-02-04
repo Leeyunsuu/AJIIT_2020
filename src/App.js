@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Todayvideolist from './components/Todayvideolist';
 import Menubutton from './components/Menubutton';
 import MenuBanner from './components/MenuBanner';
-// import Channelvideo from './components/Channelvideo';
+import Channelvideo from './components/Channelvideo';
 
 class App extends Component {
 	constructor(props) {
@@ -12,6 +12,7 @@ class App extends Component {
 			viewmode: 'main',
 			bannermode: 'home',
 			contents_id: '0',
+			channelcontents: [],
 			Web_Drama_Contents: [
 				{
 					id: 1,
@@ -83,10 +84,25 @@ class App extends Component {
 			i = i + 1;
 		}
 	}
+	shortscript() {
+		let i = 0,
+			_content = Array.from(this.state.Web_Drama_Contents);
+		const channel = '짧은대본';
+		while (i < _content.length) {
+			if (_content[i].channel === channel) {
+				console.log('정답');
+			}
+			i = i + 1;
+		}
+		return i;
+	}
 	BANNER() {
 		let mode = this.state.bannermode,
 			_banner = null;
 		switch (mode) {
+			case 'none':
+				console.log(this.state.bannermode);
+				break;
 			case 'home':
 				console.log(this.state.bannermode);
 				break;
@@ -100,7 +116,7 @@ class App extends Component {
 							});
 						}}
 						data={this.getReadContent}
-					></MenuBanner>
+					/>
 				);
 				break;
 			default:
@@ -108,17 +124,35 @@ class App extends Component {
 		}
 		return _banner;
 	}
-	// View() {
-	// 	let mode = this.state.bannermode,
-	// 		_view = null;
-	// 	switch (mode) {
-	// 		case 'main':
-	// 			break;
-	// 		case 'channelvideo':
-	// 			break;
-	// 		default:
-	// 	}
-	// }
+	MAINVIEW() {
+		let viewmode = this.state.viewmode,
+			_mainview = null;
+		switch (viewmode) {
+			case 'main':
+				console.log(viewmode);
+				_mainview = (
+					<Todayvideolist
+						mode={(id) => {
+							this.setState({
+								contents_id: Number(id),
+							});
+						}}
+						data={this.state.Web_Drama_Contents}
+					></Todayvideolist>
+				);
+				break;
+			case 'channelvideo':
+				this.setState({
+					bannermode: 'none',
+				});
+				console.log(viewmode);
+				break;
+			default:
+				console.log(viewmode);
+		}
+		return _mainview;
+	}
+
 	render() {
 		return (
 			<div className='App'>
@@ -130,16 +164,8 @@ class App extends Component {
 					}}
 				></Menubutton>
 				{this.BANNER()}
-				<Todayvideolist
-					mode={(id) => {
-						this.setState({
-							contents_id: Number(id),
-						});
-						// <div className='textstyle'>오늘 업로드 된 작품</div>;
-					}}
-					data={this.state.Web_Drama_Contents}
-				></Todayvideolist>
-				{/* <Channelvideo data={this.state.Web_Drama_Contents}></Channelvideo> */}
+				{this.MAINVIEW()}
+				<Channelvideo data={this.shortscript()}></Channelvideo>
 			</div>
 		);
 	}

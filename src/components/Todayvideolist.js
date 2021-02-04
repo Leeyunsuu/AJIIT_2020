@@ -10,7 +10,6 @@ class Todayvideolist extends Component {
 		}
 	}
 	render() {
-		console.log('list');
 		var lists = [];
 		var data = this.props.data;
 		var i = 0;
